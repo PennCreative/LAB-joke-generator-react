@@ -1,14 +1,19 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import getJoke from '../api/jokeData';
+import Riddle from '../components/JokeBox';
 
 function Home() {
-  // const [joke, setJoke] = useState();
+  const [joke, setJoke] = useState({});
 
   const getTheJoke = () => {
     getJoke().then((obj) => {
       console.warn(obj.setup);
       console.warn(obj.delivery);
+      setJoke({
+        setup: obj.setup,
+        delivery: obj.delivery,
+      });
     });
   };
   return (
@@ -22,8 +27,10 @@ function Home() {
           margin: '0 auto',
         }}
       >
-        <h1>Get Joke</h1>
-        <Button type="button" onClick={getTheJoke}>Get Joke</Button>
+        <h3>{joke.setup}</h3>
+        <h2>{joke.delivery}</h2>
+        <Riddle />
+        <Button type="button" onClick={() => getTheJoke()}>Get Joke</Button>
       </div>
     </>
   );
